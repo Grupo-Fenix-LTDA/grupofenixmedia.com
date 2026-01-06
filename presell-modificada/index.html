@@ -227,6 +227,7 @@
                 <!-- FORM 1: Headline -->
                 <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                     <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                    <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                     <button type="submit" class="headline-button">
                         <h1>Discover the 7-second "Vegetal Mounjaro" that's helping thousands <span class="highlight">reverse type 2</span>… naturally, all from the comfort of their homes.</h1>
                     </button>
@@ -242,6 +243,7 @@
                 <!-- FORM 2: Imagem -->
                 <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                     <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                    <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                     <button type="submit" class="image-button">
                         <img src="./before-after.png" alt="Before and After Results" class="before-after-image">
                     </button>
@@ -252,6 +254,7 @@
                 <!-- FORM 3: CTA -->
                 <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                     <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                    <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                     <button type="submit" class="cta-button">
                         WATCH THE VIDEO NOW!
                     </button>
@@ -265,16 +268,19 @@
         <div class="footer-links">
             <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                 <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                 <button type="submit" class="footer-link-btn">Privacy Policy</button>
             </form>
             |
             <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                 <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                 <button type="submit" class="footer-link-btn">Term Of Use</button>
             </form>
             |
             <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
                 <input type="hidden" name="rtkcid" class="rtk-cid" value="">
+                <input type="hidden" name="rtkcmpid" value="69499e75a4ca15bb3f3b1f51">
                 <button type="submit" class="footer-link-btn">Disclaimer</button>
             </form>
         </div>
@@ -316,40 +322,38 @@
         return '';
     }
     
-    function getRtkCid() {
-        // Pega do cookie rtkclickid-store (onde o RedTrack guarda!)
-        return getCookie('rtkclickid-store');
-    }
-    
     function fillRtkFields() {
-        var rtkcid = getRtkCid();
+        var rtkcid = getCookie('rtkclickid-store');
         var fields = document.querySelectorAll('.rtk-cid');
         for (var i = 0; i < fields.length; i++) {
             fields[i].value = rtkcid;
         }
-        console.log('RedTrack rtkcid (from rtkclickid-store):', rtkcid || 'não encontrado');
+        console.log('RedTrack rtkcid:', rtkcid || 'não encontrado');
     }
+    
+    // Executa imediatamente
+    fillRtkFields();
     
     // Executa quando DOM carrega
     document.addEventListener('DOMContentLoaded', fillRtkFields);
     
     // Tenta de novo após pretrack.js carregar
-    setTimeout(fillRtkFields, 500);
+    setTimeout(fillRtkFields, 300);
+    setTimeout(fillRtkFields, 600);
     setTimeout(fillRtkFields, 1000);
     
-    // Preenche no submit também (garantia)
-    var forms = document.querySelectorAll('.rtk-form');
-    for (var i = 0; i < forms.length; i++) {
-        forms[i].addEventListener('submit', function(e) {
+    // Preenche no submit também
+    document.querySelectorAll('.rtk-form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
             var field = this.querySelector('.rtk-cid');
             if (field) {
-                var rtkcid = getRtkCid();
+                var rtkcid = getCookie('rtkclickid-store');
                 if (rtkcid) {
                     field.value = rtkcid;
                 }
             }
         });
-    }
+    });
     </script>
     
 </body>
