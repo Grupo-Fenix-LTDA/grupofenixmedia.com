@@ -223,8 +223,8 @@
         }
     </style>
     
-    <!-- RedTrack - mantido -->
-   <script type="text/javascript" src="https://lp.grupofenixmedia.com/pretrack.js?rtkcmpid=69499e75a4ca15bb3f3b1f51"></script>
+    <!-- RedTrack -->
+    <script type="text/javascript" src="https://lp.grupofenixmedia.com/pretrack.js?rtkcmpid=69499e75a4ca15bb3f3b1f51"></script>
 </head>
 <body>
     <div class="red-bar-top"></div>
@@ -234,7 +234,8 @@
             <div class="text-section">
                 
                 <!-- FORM 1: Headline clicável -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                    <input type="hidden" name="clickid" class="rtk-clickid" value="">
                     <button type="submit" class="headline-button">
                         <h1>Discover the 7-second "Vegetal Mounjaro" that's helping thousands <span class="highlight">reverse type 2</span>… naturally, all from the comfort of their homes.</h1>
                     </button>
@@ -248,7 +249,8 @@
             <div class="image-section">
                 
                 <!-- FORM 2: Imagem clicável -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                    <input type="hidden" name="clickid" class="rtk-clickid" value="">
                     <button type="submit" class="image-button">
                         <img src="./before-after.png" alt="Before and After Results" class="before-after-image">
                     </button>
@@ -257,7 +259,8 @@
                 <p class="image-caption">This video has been reported and censored multiple times for exposing the truth they've hidden for decades.</p>
                 
                 <!-- FORM 3: Botão CTA -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                    <input type="hidden" name="clickid" class="rtk-clickid" value="">
                     <button type="submit" class="cta-button">
                         WATCH THE VIDEO NOW!
                     </button>
@@ -271,15 +274,18 @@
         <div class="footer-links">
             
             <!-- Links do footer como forms -->
-            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                <input type="hidden" name="clickid" class="rtk-clickid" value="">
                 <button type="submit" class="footer-link-btn">Privacy Policy</button>
             </form>
             |
-            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                <input type="hidden" name="clickid" class="rtk-clickid" value="">
                 <button type="submit" class="footer-link-btn">Term Of Use</button>
             </form>
             |
-            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link rtk-form">
+                <input type="hidden" name="clickid" class="rtk-clickid" value="">
                 <button type="submit" class="footer-link-btn">Disclaimer</button>
             </form>
             
@@ -307,6 +313,69 @@
         grecaptcha.ready(function() {
             grecaptcha.execute('6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX', {action: 'homepage'});
         });
+    </script>
+    
+    <!-- Captura ClickID do RedTrack -->
+    <script>
+    function getRedTrackClickId() {
+        var clickid = '';
+        
+        // 1. URL atual
+        var urlParams = new URLSearchParams(window.location.search);
+        clickid = urlParams.get('clickid') || urlParams.get('rtkcid') || urlParams.get('rtkclickid');
+        
+        // 2. Cookies
+        if (!clickid) {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.indexOf('rtkclickid=') === 0) {
+                    clickid = cookie.substring('rtkclickid='.length);
+                    break;
+                }
+                if (cookie.indexOf('rtkcid=') === 0) {
+                    clickid = cookie.substring('rtkcid='.length);
+                    break;
+                }
+            }
+        }
+        
+        // 3. Variáveis globais do RedTrack
+        if (!clickid && typeof window.rtkClickId !== 'undefined') {
+            clickid = window.rtkClickId;
+        }
+        if (!clickid && typeof window.RTK !== 'undefined' && window.RTK.clickid) {
+            clickid = window.RTK.clickid;
+        }
+        
+        // 4. localStorage
+        if (!clickid) {
+            clickid = localStorage.getItem('rtkclickid') || localStorage.getItem('clickid') || '';
+        }
+        
+        return clickid;
+    }
+    
+    function fillClickIdFields() {
+        var clickid = getRedTrackClickId();
+        var fields = document.querySelectorAll('.rtk-clickid');
+        for (var i = 0; i < fields.length; i++) {
+            fields[i].value = clickid;
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', fillClickIdFields);
+    setTimeout(fillClickIdFields, 1000);
+    
+    var forms = document.querySelectorAll('.rtk-form');
+    for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function() {
+            var field = this.querySelector('.rtk-clickid');
+            if (field && !field.value) {
+                field.value = getRedTrackClickId();
+            }
+        });
+    }
     </script>
     
 </body>
