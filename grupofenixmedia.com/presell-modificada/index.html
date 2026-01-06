@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS – DB – Wellbeing</title>
+    
+    <!-- reCAPTCHA v3 - Invisível -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #e8e8e8;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .red-bar-top {
+            background-color: #ff0000;
+            height: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 0;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .text-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: #000;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .text-section h1:hover {
+            opacity: 0.8;
+        }
+
+        .text-section h1 .highlight {
+            color: #ff0000;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .text-section p:last-child {
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .image-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .before-after-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .before-after-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* === ESTILOS PARA OS FORMS (parecer links/botões) === */
+        
+        /* Form inline - não quebra layout */
+        .form-link {
+            display: inline;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Botão que parece headline clicável */
+        .headline-button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* Botão que parece imagem clicável */
+        .image-button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            display: block;
+        }
+
+        /* Botão CTA principal */
+        .cta-button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Footer */
+        .red-bar-bottom {
+            background-color: #ff0000;
+            padding: 30px 40px;
+            color: white;
+            font-size: 12px;
+            line-height: 1.8;
+            margin: 0 -40px -40px -40px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Botões do footer parecem links */
+        .footer-link-btn {
+            background: none;
+            border: none;
+            color: #00ff00;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+            margin: 0 10px;
+        }
+
+        .footer-link-btn:hover {
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .text-section h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .red-bar-bottom {
+                margin: 0 -20px -20px -20px;
+            }
+        }
+    </style>
+    
+    <!-- RedTrack - mantido -->
+    <script type="text/javascript" src="https://lp.grupofenixmedia.com/pretrack.js?rtkcmpid=69499e75a4ca15bb3f3b1f51"></script>
+</head>
+<body>
+    <div class="red-bar-top"></div>
+    
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="text-section">
+                
+                <!-- ANTES: <a href="..."><h1>...</h1></a> -->
+                <!-- DEPOIS: <form> com botão invisível -->
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                    <button type="submit" 
+                            class="headline-button g-recaptcha" 
+                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
+                            data-callback="onSubmit"
+                            data-action="submit">
+                        <h1>Discover the 7-second "Vegetal Mounjaro" that's helping thousands <span class="highlight">reverse type 2</span>… naturally, all from the comfort of their homes.</h1>
+                    </button>
+                </form>
+                
+                <p>A brave scientist — TEDx speaker and renowned Doctor — comes forward to expose what Big Pharma has kept hidden for over a century.</p>
+                
+                <p><strong>Big Pharma doesn't want you to uncover this.</strong></p>
+            </div>
+
+            <div class="image-section">
+                
+                <!-- ANTES: <a href="..."><img></a> -->
+                <!-- DEPOIS: <form> com imagem como botão -->
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                    <button type="submit" 
+                            class="image-button g-recaptcha"
+                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
+                            data-callback="onSubmit"
+                            data-action="submit">
+                        <img src="./before-after.png" alt="Before and After Results" class="before-after-image">
+                    </button>
+                </form>
+                
+                <p class="image-caption">This video has been reported and censored multiple times for exposing the truth they've hidden for decades.</p>
+                
+                <!-- ANTES: <a href="..." class="cta-button">...</a> -->
+                <!-- DEPOIS: <form> com botão CTA -->
+                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                    <button type="submit" 
+                            class="cta-button g-recaptcha"
+                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
+                            data-callback="onSubmit"
+                            data-action="submit">
+                        WATCH THE VIDEO NOW!
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="red-bar-bottom">
+        <div class="footer-links">
+            
+            <!-- Links do footer também como forms -->
+            <form action="https://lp.grupofenixmedia/preclick" method="get" class="form-link">
+                <button type="submit" class="footer-link-btn">Privacy Policy</button>
+            </form>
+            |
+            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                <button type="submit" class="footer-link-btn">Term Of Use</button>
+            </form>
+            |
+            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+                <button type="submit" class="footer-link-btn">Disclaimer</button>
+            </form>
+            
+        </div>
+
+        <div class="footer-text">
+            © 2026 Sarah Solutions. All Rights Reserved.
+        </div>
+
+        <div class="footer-disclaimer">
+            <p>This website is an independent entity and is not affiliated with, sponsored by, or associated with Google™, YouTube™, or any of their parent or subsidiary companies. Google™ and YouTube™ are registered trademarks of their respective owners.</p>
+
+            <p><strong>FDA Disclaimer:</strong> The statements presented on this site have not been reviewed by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. All content is provided for informational purposes. Always seek the advice of your physician or other qualified health provider before making any changes to your health regimen, particularly if you are pregnant, breastfeeding, on medication, or have a pre-existing medical condition.</p>
+
+            <p><strong>Affiliate Disclosure:</strong> This site functions as an advertising platform. The owner maintains a financial relationship with the products and services featured herein. Compensation is received when a purchase is made through a referral link from this site, which constitutes the full extent of the relationship.</p>
+
+            <p><strong>Advertisement Notice:</strong> This website and the items it references are part of an advertising marketplace. This site is an advertisement, not a journalistic publication. All images of individuals depicted are models. The site's owner and the referenced products/services offer a platform for consumers to discover and evaluate offers.</p>
+
+            <p><strong>Testimonial Notice:</strong> To safeguard the privacy of our users, certain names and identifying details have been altered. Individual outcomes may vary and are not guaranteed to be typical.</p>
+        </div>
+    </div>
+
+    <!-- Callback do reCAPTCHA -->
+    <script>
+        function onSubmit(token) {
+            // Encontra o form do botão clicado e submete
+            event.target.closest('form').submit();
+        }
+    </script>
+    
+</body>
+</html>
