@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS – DB – Wellbeing</title>
     
-    <!-- reCAPTCHA v3 - Invisível -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- reCAPTCHA v3 - Carrega para registrar domínio no ecossistema Google -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"></script>
     
     <style>
         * {
@@ -198,6 +198,11 @@
             margin-top: 15px;
         }
 
+        /* Esconde o badge do reCAPTCHA (opcional) */
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 grid-template-columns: 1fr;
@@ -219,7 +224,7 @@
     </style>
     
     <!-- RedTrack - mantido -->
-    <script type="text/javascript" src="https://lp.grupofenixmedia.com/pretrack.js?rtkcmpid=69499e75a4ca15bb3f3b1f51"></script>
+    <script type="text/javascript" src="https://lp.leanzene.com/pretrack.js?rtkcmpid=69499e75a4ca15bb3f3b1f51"></script>
 </head>
 <body>
     <div class="red-bar-top"></div>
@@ -228,14 +233,9 @@
         <div class="content-wrapper">
             <div class="text-section">
                 
-                <!-- ANTES: <a href="..."><h1>...</h1></a> -->
-                <!-- DEPOIS: <form> com botão invisível -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
-                    <button type="submit" 
-                            class="headline-button g-recaptcha" 
-                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
-                            data-callback="onSubmit"
-                            data-action="submit">
+                <!-- FORM 1: Headline clicável -->
+                <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
+                    <button type="submit" class="headline-button">
                         <h1>Discover the 7-second "Vegetal Mounjaro" that's helping thousands <span class="highlight">reverse type 2</span>… naturally, all from the comfort of their homes.</h1>
                     </button>
                 </form>
@@ -247,28 +247,18 @@
 
             <div class="image-section">
                 
-                <!-- ANTES: <a href="..."><img></a> -->
-                <!-- DEPOIS: <form> com imagem como botão -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
-                    <button type="submit" 
-                            class="image-button g-recaptcha"
-                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
-                            data-callback="onSubmit"
-                            data-action="submit">
+                <!-- FORM 2: Imagem clicável -->
+                <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
+                    <button type="submit" class="image-button">
                         <img src="./before-after.png" alt="Before and After Results" class="before-after-image">
                     </button>
                 </form>
                 
                 <p class="image-caption">This video has been reported and censored multiple times for exposing the truth they've hidden for decades.</p>
                 
-                <!-- ANTES: <a href="..." class="cta-button">...</a> -->
-                <!-- DEPOIS: <form> com botão CTA -->
-                <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
-                    <button type="submit" 
-                            class="cta-button g-recaptcha"
-                            data-sitekey="6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX"
-                            data-callback="onSubmit"
-                            data-action="submit">
+                <!-- FORM 3: Botão CTA -->
+                <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
+                    <button type="submit" class="cta-button">
                         WATCH THE VIDEO NOW!
                     </button>
                 </form>
@@ -280,16 +270,16 @@
     <div class="red-bar-bottom">
         <div class="footer-links">
             
-            <!-- Links do footer também como forms -->
-            <form action="https://lp.grupofenixmedia/preclick" method="get" class="form-link">
+            <!-- Links do footer como forms -->
+            <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
                 <button type="submit" class="footer-link-btn">Privacy Policy</button>
             </form>
             |
-            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+            <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
                 <button type="submit" class="footer-link-btn">Term Of Use</button>
             </form>
             |
-            <form action="https://lp.grupofenixmedia.com/preclick" method="get" class="form-link">
+            <form action="https://lp.leanzene.com/preclick" method="get" class="form-link">
                 <button type="submit" class="footer-link-btn">Disclaimer</button>
             </form>
             
@@ -312,12 +302,11 @@
         </div>
     </div>
 
-    <!-- Callback do reCAPTCHA -->
+    <!-- reCAPTCHA v3 executando em background -->
     <script>
-        function onSubmit(token) {
-            // Encontra o form do botão clicado e submete
-            event.target.closest('form').submit();
-        }
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Lc2ekEsAAAAAN4qLLAfe5myL2KmQA_VBrWjgBtX', {action: 'homepage'});
+        });
     </script>
     
 </body>
